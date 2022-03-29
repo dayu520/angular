@@ -1,17 +1,17 @@
-<nz-layout class="app-layout">
-  <nz-sider class="menu-sidebar"
-            nzCollapsible
-            nzWidth="256px"
-            nzBreakpoint="md"
-            [(nzCollapsed)]="isCollapsed"
-            [nzTrigger]="null">
-    <div class="sidebar-logo">
-      <a href="https://ng.ant.design/" target="_blank">
-        <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo">
-        <h1>Ant Design Of Angular</h1>
-      </a>
-    </div>
-    <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+
+<nz-layout class="layout">
+  <nz-sider
+      nzCollapsible 
+      [(nzCollapsed)]="isCollapsed" 
+      [nzTrigger]="null"
+  >
+  <div class="sidebar-logo">
+    <a href="https://ng.ant.design/" target="_blank">
+      <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo">
+      <h1>Ant Design Of Angular</h1>
+    </a>
+  </div>
+    <ul nz-menu nzTheme="dark" nzMode="inline">
       <li nz-submenu nzOpen nzTitle="antv/X6" nzIcon="dashboard">
         <ul>
           <li nz-menu-item nzMatchRouter>
@@ -25,30 +25,55 @@
           </li>
         </ul>
       </li>
-      <li nz-submenu nzOpen nzTitle="Form" nzIcon="form">
-        <ul>
-          <li nz-menu-item nzMatchRouter>
-            <a>Basic Form</a>
-          </li>
-        </ul>
+      <li nz-menu-item>
+        <i nz-icon nzType="file"></i>
+        <span>nav 1</span>
+      </li>
+      <li nz-menu-item>
+        <i nz-icon nzType="video-camera"></i>
+        <span>nav 2</span>
+      </li>
+      <li nz-menu-item>
+        <i nz-icon nzType="upload"></i>
+        <span>nav 3</span>
+      </li>
+      <li nz-menu-item>
+        <i nz-icon nzType="bar-chart"></i>
+        <span>nav 4</span>
+      </li>
+      <li nz-menu-item>
+        <i nz-icon nzType="cloud-o"></i>
+        <span>nav 5</span>
+      </li>
+      <li nz-menu-item>
+        <i nz-icon nzType="appstore-o"></i>
+        <span>nav 6</span>
+      </li>
+      <li nz-menu-item>
+        <i nz-icon nzType="team"></i>
+        <span>nav 7</span>
+      </li>
+      <li nz-menu-item>
+        <i nz-icon nzType="shop"></i>
+        <span>nav 8</span>
       </li>
     </ul>
   </nz-sider>
-  <nz-layout>
+  <nz-layout class="right-layout" [style.margin-left]="isCollapsed? '80px':'200px'">
     <nz-header>
-      <div class="app-header">
-        <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
-            <i class="trigger"
-               nz-icon
-               [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
-            ></i>
-        </span>
-      </div>
+      <i
+        class="trigger"
+        nz-icon
+        [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+        (click)="isCollapsed = !isCollapsed"
+        style="margin-left: 50px;"
+      ></i>
     </nz-header>
     <nz-content>
       <div class="inner-content">
         <router-outlet></router-outlet>
       </div>
     </nz-content>
+  
   </nz-layout>
 </nz-layout>

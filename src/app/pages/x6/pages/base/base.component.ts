@@ -9,7 +9,8 @@ import { Input,ViewChild,ElementRef} from '@angular/core'
 export class BaseComponent implements OnInit,AfterViewInit {
   @Input() graph?:Graph
   @ViewChild("container") container: ElementRef<HTMLParagraphElement> | undefined
-
+  @ViewChild("containerWrap") containerWrap: ElementRef<HTMLParagraphElement> | undefined
+  
   public data = {
     // 节点
     nodes: [
@@ -28,6 +29,15 @@ export class BaseComponent implements OnInit,AfterViewInit {
         width: 80,   // Number，可选，节点大小的 width 值
         height: 40,  // Number，可选，节点大小的 height 值
         label: 'world', // String，节点标签
+      },
+      {
+        id: 'node4',
+        shape: 'ellipse', // 使用 ellipse 渲染
+        x: 300,
+        y: 200,
+        width: 80,
+        height: 40,
+        label: 'world',
       },
     ],
     // 边
@@ -51,12 +61,21 @@ export class BaseComponent implements OnInit,AfterViewInit {
   public settingGraph():void {
     this.graph = new Graph ({
         container:this.container?.nativeElement,
-        width: 800,
+        width:900,
         height: 600,
-        panning:true
+        panning:true,
+        background: {
+          color: '#fffbe6', // 设置画布背景颜色
+        },
+        grid: {
+          size: 10,      // 网格大小 10px
+          visible: true, // 渲染网格背景
+        },
     })
 
     this.graph.fromJSON(this.data)
+    // this.graph.zoom(-0.5)
+    // this.graph.translate(80, 40)
 
   }
 }

@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-
+import { Component, ElementRef } from '@angular/core';
+import { ViewChild } from '@angular/core';
+import{NzSiderComponent} from 'ng-zorro-antd/layout';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -7,4 +8,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   isCollapsed = false;
+
+  get getMarget(){
+    
+    return document.querySelector('.ant-layout-sider')?.clientWidth+'px'
+  }
 }
