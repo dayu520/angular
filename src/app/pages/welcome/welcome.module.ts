@@ -3,7 +3,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { WelcomeComponent } from './welcome.component';
 import { RouterModule,Routes } from '@angular/router';
 import { WelcomeRoutingModule} from './welcome-routing.module'
-
+import { NzDividerModule } from 'ng-zorro-antd/divider';
 
 
 
@@ -12,7 +12,8 @@ import { WelcomeRoutingModule} from './welcome-routing.module'
   imports: [
     NzButtonModule,
     RouterModule,
-    WelcomeRoutingModule
+    WelcomeRoutingModule,
+    NzDividerModule
   ],
   declarations: [WelcomeComponent],
   exports: [WelcomeComponent]

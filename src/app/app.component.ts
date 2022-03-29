@@ -9,9 +9,4 @@ import{NzSiderComponent} from 'ng-zorro-antd/layout';
 })
 export class AppComponent {
   isCollapsed = false;
-
-  get getMarget(){
-    
-    return document.querySelector('.ant-layout-sider')?.clientWidth+'px'
-  }
 }

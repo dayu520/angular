@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { Graph } from '@antv/x6';
+import { Graph,DataUri  } from '@antv/x6';
 import { Input,ViewChild,ElementRef} from '@angular/core';
 import * as $ from 'JQuery'
 @Component({
@@ -8,7 +8,7 @@ import * as $ from 'JQuery'
   styleUrls: ['./base.component.scss']
 })
 export class BaseComponent implements OnInit,AfterViewInit {
-  @Input() graph?:Graph
+  public graph?:Graph
   @ViewChild("container") container: ElementRef<HTMLParagraphElement> | undefined
   @ViewChild("containerWrap") containerWrap: ElementRef<HTMLParagraphElement> | undefined
   
@@ -50,8 +50,6 @@ export class BaseComponent implements OnInit,AfterViewInit {
     ],
   };
 
-
-
   constructor() { }
 
   ngOnInit(): void {
@@ -62,12 +60,25 @@ export class BaseComponent implements OnInit,AfterViewInit {
   get width(){
     return $('#containerWrap').width()
   }
+
+  public export(){
+ 
+    this.graph?.toSVG((dataUri: string) => {
+      // 下载
+      DataUri.downloadDataUri(DataUri.svgToDataUrl(dataUri), 'chart.svg')
+    })
+  }
+
+
   public settingGraph():void {
     this.graph = new Graph ({
         container:this.container?.nativeElement,
         width:this.width,
         height: 600,
-        panning:true,
+        panning: {
+          enabled: true,
+          modifiers: 'shift',
+        },
         background: {
           color: '#fffbe6', // 设置画布背景颜色
         },
@@ -80,6 +91,7 @@ export class BaseComponent implements OnInit,AfterViewInit {
     this.graph.fromJSON(this.data)
     // this.graph.zoom(-0.5)
     // this.graph.translate(80, 40)
+    
 
   }
 }

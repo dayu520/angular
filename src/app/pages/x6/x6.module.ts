@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { X6RoutingModule } from './x6-routing.module';
 import { BaseComponent } from './pages/base/base.component';
-
+import { NzButtonModule } from 'ng-zorro-antd/button';
 
 @NgModule({
   declarations: [
@@ -11,7 +11,8 @@ import { BaseComponent } from './pages/base/base.component';
   ],
   imports: [
     CommonModule,
-    X6RoutingModule
+    X6RoutingModule,
+    NzButtonModule
   ],
   exports:[BaseComponent]
 })
