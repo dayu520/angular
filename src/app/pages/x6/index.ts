@@ -1,0 +1,1 @@
+export { X6Module } from './x6.module';
