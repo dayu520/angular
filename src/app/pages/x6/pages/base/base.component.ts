@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Graph } from '@antv/x6';
-import { Input,ViewChild,ElementRef} from '@angular/core'
+import { Input,ViewChild,ElementRef} from '@angular/core';
+import * as $ from 'JQuery'
 @Component({
   selector: 'app-base',
   templateUrl: './base.component.html',
@@ -58,10 +59,13 @@ export class BaseComponent implements OnInit,AfterViewInit {
   ngAfterViewInit(): void {
     this.settingGraph()
   }
+  get width(){
+    return $('#containerWrap').width()
+  }
   public settingGraph():void {
     this.graph = new Graph ({
         container:this.container?.nativeElement,
-        width:900,
+        width:this.width,
         height: 600,
         panning:true,
         background: {
