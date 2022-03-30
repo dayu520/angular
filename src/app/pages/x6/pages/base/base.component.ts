@@ -3,6 +3,7 @@ import { Graph,DataUri  } from '@antv/x6';
 import { Input,ViewChild,ElementRef} from '@angular/core';
 import * as $ from 'JQuery';
 import { fromEvent } from 'rxjs';
+import { ServiceService } from '../../../../services/service.service'
 @Component({
   selector: 'app-base',
   templateUrl: './base.component.html',
@@ -50,17 +51,21 @@ export class BaseComponent implements OnInit,AfterViewInit {
       },
     ],
   };
-
-  constructor() { }
+  public lastCollapsed=false;
+  constructor(private _serviceService:ServiceService) { }
 
   ngOnInit(): void {
+    this.lastCollapsed=this._serviceService.isCollapsed
   }
   ngAfterViewInit(): void {
     this.settingGraph()
   }
 
   ngAfterViewChecked(): void {
-    this.settingGraph()
+    if(this._serviceService.isCollapsed!=this.lastCollapsed){
+      this.settingGraph();
+      this.lastCollapsed=this._serviceService.isCollapsed
+    }
   }
   get width(){
     return $('#containerWrap').width()
