@@ -1,7 +1,8 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Graph,DataUri  } from '@antv/x6';
 import { Input,ViewChild,ElementRef} from '@angular/core';
-import * as $ from 'JQuery'
+import * as $ from 'JQuery';
+import { fromEvent } from 'rxjs';
 @Component({
   selector: 'app-base',
   templateUrl: './base.component.html',
@@ -55,6 +56,10 @@ export class BaseComponent implements OnInit,AfterViewInit {
   ngOnInit(): void {
   }
   ngAfterViewInit(): void {
+    this.settingGraph()
+  }
+
+  ngAfterViewChecked(): void {
     this.settingGraph()
   }
   get width(){
