@@ -3,14 +3,15 @@ import { Graph,DataUri  } from '@antv/x6';
 import { Input,ViewChild,ElementRef} from '@angular/core';
 import * as $ from 'JQuery';
 import { fromEvent } from 'rxjs';
-import { ServiceService } from '../../../../services/service.service'
+import { ServiceService } from '../../../../services/service.service';
+import { Shape } from '@antv/x6'
 @Component({
   selector: 'app-base',
   templateUrl: './base.component.html',
   styleUrls: ['./base.component.scss']
 })
 export class BaseComponent implements OnInit,AfterViewInit {
-  public graph?:Graph
+  public graph!:Graph
   @ViewChild("container") container: ElementRef<HTMLParagraphElement> | undefined
   @ViewChild("containerWrap") containerWrap: ElementRef<HTMLParagraphElement> | undefined
   
@@ -63,19 +64,20 @@ export class BaseComponent implements OnInit,AfterViewInit {
 
   ngAfterViewChecked(): void {
     if(this._serviceService.isCollapsed!=this.lastCollapsed){
-      this.settingGraph();
+      this.graph.resize($('#containerWrap').width(), 600);
+
       this.lastCollapsed=this._serviceService.isCollapsed
     }
   }
-  get width(){
-    return $('#containerWrap').width()
-  }
+
 
   public export(){
  
     this.graph?.toSVG((dataUri: string) => {
       // 下载
       DataUri.downloadDataUri(DataUri.svgToDataUrl(dataUri), 'chart.svg')
+    },{
+      copyStyles:false
     })
   }
 
@@ -83,7 +85,7 @@ export class BaseComponent implements OnInit,AfterViewInit {
   public settingGraph():void {
     this.graph = new Graph ({
         container:this.container?.nativeElement,
-        width:this.width,
+        width:$('#containerWrap').width(),
         height: 600,
         panning: {
           enabled: true,
@@ -99,9 +101,38 @@ export class BaseComponent implements OnInit,AfterViewInit {
     })
 
     this.graph.fromJSON(this.data)
+    
     // this.graph.zoom(-0.5)
     // this.graph.translate(80, 40)
     
+
+  }
+
+  public addPoint(): void {
+    const rect = this.graph.addNode({
+      shape: 'rect',
+      x: 100,
+      y: 200,
+      width: 80,
+      height: 40,
+      label: 'rect', 
+    })
+    
+    const circle = this.graph.addNode({
+      shape: 'circle',
+      x: 280,
+      y: 200,
+      width: 60,
+      height: 60,
+      label: 'circle', 
+      zIndex: 2,
+    })
+    
+    const edge = this.graph.addEdge({
+      shape: 'edge',
+      source: rect,
+      target: circle,
+    })
 
   }
 }
